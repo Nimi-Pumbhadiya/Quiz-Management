@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+    <title>Quiz Management | WorkDo Dash</title>
+    <link rel="icon" href="assets/images/favicon.png" type="image/x-icon">
+    <script src="assets/js/tailwind.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/swiper-bundle.min.css">
+    <link rel="stylesheet" href="assets\css\all.min.css">
+    <link rel="stylesheet" href="assets\css\styles.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary:'#F59E0B',
+                    },
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-inter bg-gray-50">
+    <header class="sticky top-0 z-50 bg-white shadow-lg">
+        <nav class="md:container w-full mx-auto px-4 py-4">
+          <div class="flex items-center justify-between">
+            <!-- Logo -->
+            <div class="flex items-center space-x-3 shrink-0">
+              <h1>
+                <a
+                  href="index.html"
+                  class="block lg:max-w-[90px] max-w-[70px] w-full">
+                  <img
+                    src="assets/images/header-logo.png"
+                    alt="logo"
+                    class="w-full h-full object-scale-down"
+                    loading="lazy" />
+                </a>
+              </h1>
+            </div>
+  
+            <!-- Desktop Navigation -->
+            <div
+              class="hidden md:flex items-center xl:space-x-8 lg:space-x-6 space-x-4 menu-items">
+              <a href="dashboard.html" class="text-gray-700 hover:text-primary transition-all duration-300 font-medium">Dashboard</a>
+                    <a href="create-quiz.html" class="text-gray-700 hover:text-primary transition-all duration-300 font-medium">Create Quiz</a>
+                    <a href="quiz-library.html" class="text-gray-700 hover:text-primary transition-all duration-300 font-medium">Quiz Library</a>
+            </div>
+            <div class="header-right-col hidden md:flex lg:space-x-6 space-x-4 menu-items">
+              <div class="relative inline-block text-left h-auto" id="language-dropdown">
+                      <button data-dropdown-toggle="language" type="button" class="inline-flex items-center h-full rounded-lg justify-center w-full text-black border border-black lg:px-4 px-3 py-2 bg-white text-sm font-medium  focus:outline-none focus:ring- focus:ring-offset-2 focus:ring-primary">
+                              English
+                      <i class="fas fa-chevron-down ml-2"></i>
+                      </button>
+  
+                      <div data-dropdown-menu="language" class="origin-top-right absolute right-0 mt-2 w-full shadow-lg rounded-lg border-black border overflow-hidden bg-white ring-1 ring-black ring-opacity-5 focus:outline-none hidden transition-all transform duration-100">
+                          <a href="javascript:void(0)" class="block px-4 py-2 text-gray-700 text-sm hover:text-black transition-all hover:bg-gray-100">English</a>
+                          <a href="javascript:void(0)" class="block px-4 py-2 text-gray-700 text-sm hover:text-black transition-all hover:bg-gray-100">Español</a>
+                          <a href="javascript:void(0)" class="block px-4 py-2 text-gray-700 text-sm hover:text-black transition-all hover:bg-gray-100">Français</a>
+                          <a href="javascript:void(0)" class="block px-4 py-2 text-gray-700 text-sm hover:text-black transition-all hover:bg-gray-100">Deutsch</a>
+                      </div>
+                  </div>
+            </div>
+  
+            <!-- Mobile Menu Button -->
+            <button class="md:hidden text-dark text-xl" id="mobileMenuBtn">
+              <i class="fas fa-bars"></i>
+            </button>
+          </div>
+  
+          <!-- Mobile Navigation -->
+          <div class="md:hidden mt-4 hidden border-t pt-4" id="mobileMenu">
+            <div class="flex gap-4 mb-4">
+               <div class="relative inline-block text-left text-sm">
+                      <button data-dropdown-toggle="mob-language" type="button" class="w-full h-full rounded-lg flex items-center justify-between px-3 py-2 border border-black">
+                            English
+                      <i class="fas fa-chevron-down ml-2"></i>
+                      </button>
+  
+                      <div data-dropdown-menu="mob-language" class="w-full absolute left-0 mt-2 py-2 min-w-24 z-10 rounded-lg bg-white border border-black shadow-lg hidden">
+                          <a href="javascript:void(0)" class="block px-4 py-2 text-black hover:text-dark-900 hover:bg-gray-100">English</a>
+                          <a href="javascript:void(0)" class="block px-4 py-2 text-black hover:text-dark-900 hover:bg-gray-100">Español</a>
+                          <a href="javascript:void(0)" class="block px-4 py-2 text-black hover:text-dark-900 hover:bg-gray-100">Français</a>
+                          <a href="javascript:void(0)" class="block px-4 py-2 text-black hover:text-dark-900 hover:bg-gray-100">Deutsch</a>
+                      </div>
+                  </div>
+            </div>
+            <div class="flex flex-col">
+                <a href="dashboard.html" class="block pb-2 text-gray-700 hover:text-primary transition-all duration-300">Dashboard</a>
+                <a href="create-quiz.html" class="block py-2 text-gray-700 hover:text-primary transition-all duration-300">Create Quiz</a>
+                <a href="quiz-library.html" class="block py-2 text-gray-700 hover:text-primary transition-all duration-300">Quiz Library</a>
+            </div>
+        </div>
+        </nav>
+    </header>
+
+    <!-- Quiz Start Screen -->
+    <div id="quiz-start" class="flex items-center justify-center lg:py-20 py-10">
+        <div class="md:container w-full mx-auto px-4">
+            <div class="md:max-w-2xl mx-auto">
+                <div class="bg-white rounded-xl shadow-lg lg:p-8 sm:p-6 p-4 text-center">
+                    <div class="md:mb-8 mb-4">
+                        <img src="assets/images/quiz.png" loading="lazy" alt="Quiz Starting" class="w-full h-48 object-cover rounded-lg mb-6">
+                    </div>
+                    <h2 id="quiz-title" class="md:text-3xl text-2xl font-bold text-gray-900 md:mb-4 mb-2">Quiz Title</h2>
+                    <p id="quiz-description" class="text-gray-600 md:mb-6 mb-4">Quiz description will appear here</p>
+                    
+                    <div class="grid sm:grid-cols-2 gap-4 mb-8 text-sm">
+                        <div class="bg-gray-50 rounded-lg p-4 shadow-lg">
+                            <div class="text-gray-500 mb-1">Questions</div>
+                            <div id="question-count" class="text-lg font-bold text-gray-900">0</div>
+                        </div>
+                        <div class="bg-gray-50 rounded-lg p-4 shadow-lg">
+                            <div class="text-gray-500 mb-1">Time Limit</div>
+                            <div id="time-limit" class="text-lg font-bold text-gray-900">No limit</div>
+                        </div>
+                        <div class="bg-gray-50 rounded-lg p-4 shadow-lg">
+                            <div class="text-gray-500 mb-1">Difficulty</div>
+                            <div id="difficulty-level" class="text-lg font-bold text-gray-900">Medium</div>
+                        </div>
+                        <div class="bg-gray-50 rounded-lg p-4 shadow-lg">
+                            <div class="text-gray-500 mb-1">Category</div>
+                            <div id="quiz-category" class="text-lg font-bold text-gray-900">General</div>
+                        </div>
+                    </div>
+
+                    <button id="start-quiz-btn" class="btn-primary">
+                        Start Quiz
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quiz Taking Interface -->
+    <div id="quiz-interface" class="hidden lg:py-20 py-10">
+        <div class="md:container w-full mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <!-- Quiz Header -->
+                <div class="bg-white rounded-xl shadow-lg md:p-6 p-4 md:mb-8 mb-6">
+                    <div class="flex flex-row justify-between items-start md:items-center">
+                        <div>
+                            <h2 id="interface-quiz-title" class="text-xl font-bold text-gray-900">Quiz Title</h2>
+                            <div class="flex items-center sm:space-x-4 mt-2 text-sm text-gray-600 flex-wrap gap-4">
+                                <span id="progress-text">Question 1 of 10</span>
+                                <span id="difficulty-display" class="bg-gray-100 px-2 py-1 rounded">Medium</span>
+                                <div id="timer" style="font-weight:bold;">Time left: 15s</div>
+                            </div>
+                        </div>
+                        <div class="mt-4 md:mt-0 flex items-center space-x-4">
+                            <div id="timer-display" class="hidden bg-primary text-white px-4 py-2 rounded-lg font-bold">
+                                <svg class="w-5 h-5 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                <span id="time-remaining">00:00</span>
+                            </div>
+                            <button id="quit-quiz" class="text-gray-500 hover:text-red-500 transition-colors duration-200">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Progress Bar -->
+                    <div class="mt-6">
+                        <div class="bg-gray-200 rounded-full h-2">
+                            <div id="progress-bar" class="bg-primary h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Card -->
+                <div class="bg-white rounded-xl shadow-lg md:p-6 p-4">
+                    <div class="md:mb-6 mb-4">
+                        <h3 id="current-question" class="sm:text-xl text-lg font-bold text-gray-900 md:mb-6 mb-4">Question will appear here</h3>
+                        <div id="question-content" class="space-y-4">
+                            <!-- Question content will be populated here -->
+                        </div>
+                    </div>
+
+                    <!-- Navigation Buttons -->
+                    <div class="flex flex-wrap gap-3 justify-between">
+                        <button id="prev-question" class="btn-secondary">
+                            Previous
+                        </button>
+                        <div class="flex-1"></div>
+                        <button id="next-question" class="btn-primary">
+                            Next Question
+                        </button>
+                        <button id="submit-quiz" class="bg-green-500 text-white md:px-6 px-5 md:py-3 py-[0.5rem] md:text-base text-sm rounded-lg hover:bg-green-600 transition-colors duration-200 font-medium hidden">
+                            Submit Quiz
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quiz Completion Screen -->
+    <div id="quiz-complete" class="hidden flex items-center justify-center md:py-20 py-10">
+        <div class="md:container w-full mx-auto px-4">
+            <div class="max-w-2xl mx-auto">
+                <div class="bg-white rounded-xl shadow-lg md:p-8 p-4 text-center">
+                    <div class="md:mb-8 mb-4">
+                        <div class="md:w-24 md:h-24 w-20 h-20 bg-primary rounded-full flex items-center justify-center mx-auto md:mb-6 mb-4">
+                            <svg class="md:w-12 md:h-12 w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <h2 class="md:text-3xl text-2xl font-bold text-gray-900 md:mb-4 mb-2">Quiz Completed!</h2>
+                        <p class="text-gray-600 md:mb-8 mb-4">Great job! Here are your results:</p>
+                    </div>
+
+                    <div class="grid grid-cols-3 md:gap-6 sm:gap-4 gap-2 md:mb-8 mb-6">
+                        <div class="bg-gray-50 rounded-lg md:p-6 sm:p-4 p-3 shadow-lg">
+                            <div class="md:text-3xl sm:text-2xl text-xl font-bold text-primary mb-2" id="final-score">0%</div>
+                            <div class="text-gray-600 md:text-base text-sm">Score</div>
+                        </div>
+                        <div class="bg-gray-50 rounded-lg md:p-6 sm:p-4 p-3 shadow-lg">
+                            <div class="md:text-3xl sm:text-2xl text-xl font-bold text-green-500 mb-2" id="correct-answers">0</div>
+                            <div class="text-gray-600 md:text-base text-sm">Correct</div>
+                        </div>
+                        <div class="bg-gray-50 rounded-lg md:p-6 sm:p-4 p-3 shadow-lg">
+                            <div class="md:text-3xl sm:text-2xl text-xl font-bold text-red-500 mb-2" id="incorrect-answers">0</div>
+                            <div class="text-gray-600 md:text-base text-sm">Incorrect</div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4">
+                        <button id="view-results" class="btn-primary w-full">
+                            View Detailed Results
+                        </button>
+                        <div class="flex flex-wrap gap-3 sm:space-x-4">
+                            <button id="retake-quiz" class="sm:flex-1 btn-secondary w-full">
+                                Retake Quiz
+                            </button>
+                            <a href="quiz-library.html" class="sm:flex-1 btn-secondary w-full">
+                                Browse Quizzes
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        <script src="assets/js/swiper-bundle.min.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script>
+        let currentQuiz = null;
+        let currentQuestionIndex = 0;
+        let userAnswers = [];
+        let questionTimer = null;
+        let questionTimeLimit = 15; // seconds per question
+        let timeLeft = questionTimeLimit;
+        let startTime = null;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const quizId = urlParams.get('id');
+            
+            // For custom quiz, we'll use a fixed ID
+            currentQuiz = getQuiz('custom-quiz');
+            
+            if (!currentQuiz) {
+                alert('Quiz not found');
+                window.location.href = 'quiz-library.html';
+                return;
+            }
+
+            initializeQuiz();
+            setupEventListeners();
+        });
+
+        function initializeQuiz() {
+            // Populate start screen
+            document.getElementById('quiz-title').textContent = currentQuiz.title;
+            document.getElementById('quiz-description').textContent = currentQuiz.description || 'Test your knowledge with this quiz';
+            document.getElementById('question-count').textContent = currentQuiz.questions.length;
+            document.getElementById('time-limit').textContent = currentQuiz.duration ? `${currentQuiz.duration} minutes` : 'No limit';
+            document.getElementById('difficulty-level').textContent = currentQuiz.difficulty || 'Medium';
+            document.getElementById('quiz-category').textContent = currentQuiz.category || 'General';
+
+            // Initialize user answers array
+            userAnswers = new Array(currentQuiz.questions.length).fill(null);
+
+            // Hide timer on start screen
+            document.getElementById('timer').style.display = 'none';
+        }
+
+        function setupEventListeners() {
+            document.getElementById('start-quiz-btn').addEventListener('click', startQuiz);
+            document.getElementById('prev-question').addEventListener('click', previousQuestion);
+            document.getElementById('next-question').addEventListener('click', nextQuestion);
+            document.getElementById('submit-quiz').addEventListener('click', submitQuiz);
+            document.getElementById('quit-quiz').addEventListener('click', quitQuiz);
+            document.getElementById('retake-quiz').addEventListener('click', retakeQuiz);
+            document.getElementById('view-results').addEventListener('click', viewResults);
+        }
+
+        function startQuiz() {
+            document.getElementById('quiz-start').classList.add('hidden');
+            document.getElementById('quiz-interface').classList.remove('hidden');
+            
+            // Setup interface
+            document.getElementById('interface-quiz-title').textContent = currentQuiz.title;
+            document.getElementById('difficulty-display').textContent = currentQuiz.difficulty || 'Medium';
+
+            startTime = new Date();
+            currentQuestionIndex = 0;
+            showQuestion(0);
+            startQuestionTimer();
+        }
+
+        function startQuestionTimer() {
+            timeLeft = questionTimeLimit;
+            updateTimerDisplay(timeLeft);
+            document.getElementById('timer').style.display = 'block';
+
+            if (questionTimer) clearInterval(questionTimer);
+            
+            questionTimer = setInterval(() => {
+                timeLeft--;
+                updateTimerDisplay(timeLeft);
+
+                if (timeLeft <= 0) {
+                    clearInterval(questionTimer);
+                    handleTimeUp();
+                }
+            }, 1000);
+        }
+
+        function updateTimerDisplay(seconds) {
+            document.getElementById('timer').textContent = `Time left: ${seconds}s`;
+        }
+
+        function handleTimeUp() {
+            alert('Time\'s up for this question!');
+            saveCurrentAnswer();
+
+            if (currentQuestionIndex < currentQuiz.questions.length - 1) {
+                currentQuestionIndex++;
+                showQuestion(currentQuestionIndex);
+                startQuestionTimer();
+            } else {
+                // Last question timed out, submit quiz
+                submitQuiz();
+            }
+        }
+
+        function showQuestion(index) {
+            const question = currentQuiz.questions[index];
+            const totalQuestions = currentQuiz.questions.length;
+            
+            // Update progress
+            document.getElementById('progress-text').textContent = `Question ${index + 1} of ${totalQuestions}`;
+            document.getElementById('progress-bar').style.width = `${((index + 1) / totalQuestions) * 100}%`;
+            
+            // Update question content
+            document.getElementById('current-question').textContent = `${index + 1}. ${question.question}`;
+            
+            const contentDiv = document.getElementById('question-content');
+            contentDiv.innerHTML = renderQuestionContent(question, index);
+            
+            // Update navigation buttons
+            const prevBtn = document.getElementById('prev-question');
+            const nextBtn = document.getElementById('next-question');
+            const submitBtn = document.getElementById('submit-quiz');
+            
+            prevBtn.classList.toggle('hidden', index === 0);
+            
+            if (index === totalQuestions - 1) {
+                nextBtn.classList.add('hidden');
+                submitBtn.classList.remove('hidden');
+            } else {
+                nextBtn.classList.remove('hidden');
+                submitBtn.classList.add('hidden');
+            }
+
+            // Restore user's previous answer if any
+            restoreUserAnswer(index);
+        }
+
+        function renderQuestionContent(question, questionIndex) {
+            if (question.type === 'multiple-choice') {
+                return `
+                    <div class="space-y-3">
+                        ${question.options.map((option, optionIndex) => `
+                            <label class="flex items-center space-x-3  px-4 py-3 border-2 border-gray-200 rounded-lg hover:border-primary hover:bg-primary hover:bg-opacity-5 transition-all duration-200 cursor-pointer">
+                                <input type="radio" name="question-${questionIndex}" value="${optionIndex}" class="text-primary custom-radio  focus:ring-primary">
+                                <span class="flex-1">${option}</span>
+                            </label>
+                        `).join('')}
+                    </div>
+                `;
+            } else if (question.type === 'true-false') {
+                return `
+                    <div class="space-y-3">
+                        <label class="flex items-center space-x-3 px-4 py-3 border-2 border-gray-200 rounded-lg hover:border-primary hover:bg-primary hover:bg-opacity-5 transition-all duration-200 cursor-pointer">
+                            <input type="radio" name="question-${questionIndex}" value="true" class="text-primary custom-radio focus:ring-primary">
+                            <span class="flex-1">True</span>
+                        </label>
+                        <label class="flex items-center space-x-3 px-4 py-3 border-2 border-gray-200 rounded-lg hover:border-primary hover:bg-primary hover:bg-opacity-5 transition-all duration-200 cursor-pointer">
+                            <input type="radio" name="question-${questionIndex}" value="false" class="text-primary custom-radio focus:ring-primary">
+                            <span class="flex-1">False</span>
+                        </label>
+                    </div>
+                `;
+            } else if (question.type === 'text-input') {
+                return `
+                    <div>
+                        <input type="text" name="question-${questionIndex}" class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg text-sm" placeholder="Enter your answer...">
+                    </div>
+                `;
+            }
+        }
+
+        function restoreUserAnswer(questionIndex) {
+            const answer = userAnswers[questionIndex];
+            if (answer === null) return;
+
+            const question = currentQuiz.questions[questionIndex];
+            
+            if (question.type === 'multiple-choice' || question.type === 'true-false') {
+                const radio = document.querySelector(`input[name="question-${questionIndex}"][value="${answer}"]`);
+                if (radio) radio.checked = true;
+            } else if (question.type === 'text-input') {
+                const input = document.querySelector(`input[name="question-${questionIndex}"]`);
+                if (input) input.value = answer;
+            }
+        }
+
+        function saveCurrentAnswer() {
+            const question = currentQuiz.questions[currentQuestionIndex];
+            
+            if (question.type === 'multiple-choice' || question.type === 'true-false') {
+                const checked = document.querySelector(`input[name="question-${currentQuestionIndex}"]:checked`);
+                userAnswers[currentQuestionIndex] = checked ? checked.value : null;
+            } else if (question.type === 'text-input') {
+                const input = document.querySelector(`input[name="question-${currentQuestionIndex}"]`);
+                userAnswers[currentQuestionIndex] = input ? input.value.trim() : null;
+            }
+        }
+
+        function previousQuestion() {
+            saveCurrentAnswer();
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                showQuestion(currentQuestionIndex);
+                startQuestionTimer();
+            }
+        }
+
+        function nextQuestion() {
+            saveCurrentAnswer();
+            if (currentQuestionIndex < currentQuiz.questions.length - 1) {
+                currentQuestionIndex++;
+                showQuestion(currentQuestionIndex);
+                startQuestionTimer();
+            }
+        }
+
+        function submitQuiz() {
+            saveCurrentAnswer();
+            
+            if (questionTimer) {
+                clearInterval(questionTimer);
+                questionTimer = null;
+            }
+
+            // Check for unanswered questions
+            const unansweredCount = userAnswers.filter(answer => answer === null || answer === '').length;
+            if (unansweredCount > 0) {
+                if (!confirm(`You have ${unansweredCount} unanswered questions. Submit anyway?`)) {
+                    // If user cancels submission, restart timer on current question
+                    startQuestionTimer();
+                    return;
+                }
+            }
+
+            const endTime = new Date();
+            const timeTaken = Math.round((endTime - startTime) / 1000); // in seconds
+            
+            const results = calculateResults();
+            const resultData = {
+                quizId: currentQuiz.id,
+                quizTitle: currentQuiz.title,
+                userAnswers: userAnswers,
+                score: results.score,
+                correctCount: results.correctCount,
+                incorrectCount: results.incorrectCount,
+                timeTaken: timeTaken,
+                completedAt: endTime.toISOString()
+            };
+
+            saveQuizResult(resultData);
+            showResults(results);
+        }
+
+        function calculateResults() {
+            let correctCount = 0;
+            
+            for (let i = 0; i < currentQuiz.questions.length; i++) {
+                const question = currentQuiz.questions[i];
+                const userAnswer = userAnswers[i];
+                
+                if (userAnswer === null || userAnswer === '') continue;
+                
+                let isCorrect = false;
+                
+                if (question.type === 'multiple-choice') {
+                    isCorrect = parseInt(userAnswer) === question.correctAnswer;
+                } else if (question.type === 'true-false') {
+                    isCorrect = userAnswer === question.correctAnswer;
+                } else if (question.type === 'text-input') {
+                    isCorrect = userAnswer.toLowerCase().trim() === question.correctAnswer.toLowerCase().trim();
+                }
+                
+                if (isCorrect) correctCount++;
+            }
+            
+            const totalQuestions = currentQuiz.questions.length;
+            const incorrectCount = totalQuestions - correctCount;
+            const score = Math.round((correctCount / totalQuestions) * 100);
+            
+            return {
+                score: score,
+                correctCount: correctCount,
+                incorrectCount: incorrectCount,
+                totalQuestions: totalQuestions
+            };
+        }
+
+        function showResults(results) {
+            document.getElementById('quiz-interface').classList.add('hidden');
+            document.getElementById('quiz-complete').classList.remove('hidden');
+            
+            document.getElementById('final-score').textContent = `${results.score}%`;
+            document.getElementById('correct-answers').textContent = results.correctCount;
+            document.getElementById('incorrect-answers').textContent = results.incorrectCount;
+
+            // Hide timer on results screen
+            document.getElementById('timer').style.display = 'none';
+        }
+
+        function quitQuiz() {
+            if (confirm('Are you sure you want to quit this quiz? Your progress will be lost.')) {
+                if (questionTimer) {
+                    clearInterval(questionTimer);
+                    questionTimer = null;
+                }
+                window.location.href = 'quiz-library.html';
+            }
+        }
+
+        function retakeQuiz() {
+            // Reset quiz state
+            currentQuestionIndex = 0;
+            userAnswers = new Array(currentQuiz.questions.length).fill(null);
+            startTime = null;
+            
+            if (questionTimer) {
+                clearInterval(questionTimer);
+                questionTimer = null;
+            }
+            
+            // Show start screen
+            document.getElementById('quiz-complete').classList.add('hidden');
+            document.getElementById('quiz-start').classList.remove('hidden');
+
+            // Hide timer on start screen
+            document.getElementById('timer').style.display = 'none';
+        }
+
+        function viewResults() {
+            // Store current results in sessionStorage for results page
+            const results = {
+                quiz: currentQuiz,
+                userAnswers: userAnswers,
+                score: parseInt(document.getElementById('final-score').textContent),
+                correctCount: parseInt(document.getElementById('correct-answers').textContent),
+                incorrectCount: parseInt(document.getElementById('incorrect-answers').textContent)
+            };
+            
+            sessionStorage.setItem('currentResults', JSON.stringify(results));
+            window.location.href = 'results.html';
+        }
+
+        function getQuiz(id) {
+            // Custom quiz with predefined questions
+            return {
+                id: id,
+                title: 'Custom Knowledge Quiz',
+                description: 'Test your knowledge with this custom quiz covering various topics.',
+                category: 'General Knowledge',
+                difficulty: 'Medium',
+                duration: 15, // 15 minutes total duration
+                questions: [
+                    {
+                        type: 'multiple-choice',
+                        question: 'Which planet is known as the Red Planet?',
+                        options: ['Venus', 'Mars', 'Jupiter', 'Saturn'],
+                        correctAnswer: 1
+                    },
+                    {
+                        type: 'multiple-choice',
+                        question: 'What is the largest mammal in the world?',
+                        options: ['African Elephant', 'Blue Whale', 'Giraffe', 'Hippopotamus'],
+                        correctAnswer: 1
+                    },
+                    {
+                        type: 'true-false',
+                        question: 'The Great Wall of China is visible from space.',
+                        correctAnswer: 'false'
+                    },
+                    {
+                        type: 'multiple-choice',
+                        question: 'Which element has the chemical symbol "O"?',
+                        options: ['Gold', 'Oxygen', 'Osmium', 'Oganesson'],
+                        correctAnswer: 1
+                    },
+                    {
+                        type: 'text-input',
+                        question: 'What is the capital of Japan?',
+                        correctAnswer: 'tokyo'
+                    }
+                ]
+            };
+        }
+
+        function saveQuizResult(resultData) {
+            // Save results locally or send to server
+            console.log('Quiz result saved:', resultData);
+        }
+    </script>
+</body>
+</html>

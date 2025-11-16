@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+    <title>Quiz Management | WorkDo Dash</title>
+    <link rel="icon" href="assets/images/favicon.png" type="image/x-icon">
+    <script src="assets/js/tailwind.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/swiper-bundle.min.css">
+    <link rel="stylesheet" href="assets\css\all.min.css">
+    <link rel="stylesheet" href="assets\css\styles.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary:'#F59E0B',
+                    },
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-inter bg-gray-50">
+    <header class="sticky top-0 z-50 bg-white shadow-lg">
+        <nav class="md:container w-full mx-auto px-4 py-4">
+          <div class="flex items-center justify-between">
+            <!-- Logo -->
+            <div class="flex items-center space-x-3 shrink-0">
+              <h1>
+                <a
+                  href="index.html"
+                  class="block lg:max-w-[90px] max-w-[70px] w-full">
+                  <img
+                    src="assets/images/header-logo.png"
+                    alt="logo"
+                    class="w-full h-full object-scale-down"
+                    loading="lazy" />
+                </a>
+              </h1>
+            </div>
+  
+            <!-- Desktop Navigation -->
+            <div
+              class="hidden md:flex items-center xl:space-x-8 lg:space-x-6 space-x-4 menu-items">
+              <a href="dashboard.html" class="text-gray-700 hover:text-primary transition-all duration-300 font-medium">Dashboard</a>
+                    <a href="create-quiz.html" class="text-gray-700 hover:text-primary transition-all duration-300 font-medium">Create Quiz</a>
+                    <a href="quiz-library.html" class="text-primary transition-all duration-300 font-medium">Quiz Library</a>
+            </div>
+            <div class="header-right-col hidden md:flex lg:space-x-6 space-x-4 menu-items">
+              <div class="relative inline-block text-left h-auto" id="language-dropdown">
+                      <button data-dropdown-toggle="language" type="button" class="inline-flex items-center h-full rounded-lg justify-center w-full text-black border border-black lg:px-4 px-3 py-2 bg-white text-sm font-medium  focus:outline-none focus:ring- focus:ring-offset-2 focus:ring-primary">
+                              English
+                      <i class="fas fa-chevron-down ml-2"></i>
+                      </button>
+  
+                      <div data-dropdown-menu="language" class="origin-top-right absolute right-0 mt-2 w-full shadow-lg rounded-lg border-black border overflow-hidden bg-white ring-1 ring-black ring-opacity-5 focus:outline-none hidden transition-all transform duration-100">
+                          <a href="javascript:void(0)" class="block px-4 py-2 text-gray-700 text-sm hover:text-black transition-all hover:bg-gray-100">English</a>
+                          <a href="javascript:void(0)" class="block px-4 py-2 text-gray-700 text-sm hover:text-black transition-all hover:bg-gray-100">Español</a>
+                          <a href="javascript:void(0)" class="block px-4 py-2 text-gray-700 text-sm hover:text-black transition-all hover:bg-gray-100">Français</a>
+                          <a href="javascript:void(0)" class="block px-4 py-2 text-gray-700 text-sm hover:text-black transition-all hover:bg-gray-100">Deutsch</a>
+                      </div>
+                  </div>
+                  <a href="dashboard.html" class="btn-primary text-white py-2">Get Started</a>
+            </div>
+  
+            <!-- Mobile Menu Button -->
+            <button class="md:hidden text-dark text-xl" id="mobileMenuBtn">
+              <i class="fas fa-bars"></i>
+            </button>
+          </div>
+  
+          <!-- Mobile Navigation -->
+          <div class="md:hidden mt-4 hidden border-t pt-4" id="mobileMenu">
+            <div class="flex gap-4 mb-4">
+               <div class="relative inline-block text-left text-sm">
+                      <button data-dropdown-toggle="mob-language" type="button" class="w-full h-full rounded-lg flex items-center justify-between px-3 py-2 border border-black">
+                            English
+                      <i class="fas fa-chevron-down ml-2"></i>
+                      </button>
+  
+                      <div data-dropdown-menu="mob-language" class="w-full absolute left-0 mt-2 py-2 min-w-24 z-10 rounded-lg bg-white border border-black shadow-lg hidden">
+                          <a href="javascript:void(0)" class="block px-4 py-2 text-black hover:text-dark-900 hover:bg-gray-100">English</a>
+                          <a href="javascript:void(0)" class="block px-4 py-2 text-black hover:text-dark-900 hover:bg-gray-100">Español</a>
+                          <a href="javascript:void(0)" class="block px-4 py-2 text-black hover:text-dark-900 hover:bg-gray-100">Français</a>
+                          <a href="javascript:void(0)" class="block px-4 py-2 text-black hover:text-dark-900 hover:bg-gray-100">Deutsch</a>
+                      </div>
+                  </div>
+                  <a href="dashboard.html" class="btn-primary text-white py-2">Get Started</a>
+            </div>
+            <div class="flex flex-col">
+                <a href="dashboard.html" class="block pb-2 text-gray-700 hover:text-primary transition-all duration-300">Dashboard</a>
+                <a href="create-quiz.html" class="block py-2 text-gray-700 hover:text-primary transition-all duration-300">Create Quiz</a>
+                <a href="quiz-library.html" class="block py-2 text-primary transition-all duration-300">Quiz Library</a>
+            </div>
+        </div>
+        </nav>
+    </header>
+
+    <!-- Header -->
+    <section class="lg:py-20 py-10 bg-gradient-to-br from-primary/5 to-primary/5 relative z-10 overflow-hidden">
+        <div class="round-blob bg-primary opacity-10 -z-10 lg:-top-36 -top-16 -left-20 ld:-left-30 rotate-animation"></div>
+        <div class="round-blob bg-primary opacity-10 -z-10 lg:-bottom-40 md:-bottom-36 -bottom-24 -right-10 rotate-animation animation-delay-3000"></div>
+        <!-- Content Container -->
+        <div class="relative md:container w-full mx-auto px-4">
+            <div class="flex flex-col sm:flex-row justify-between items-start md:items-center">
+                <div>
+                    <h2 class="sm:text-3xl text-2xl lg:text-4xl font-bold text-gray-900 sm:mb-4 mb-3">Quiz Library</h2>
+                    <p class="text-gray-600 mt-2">Browse, manage, and take all your quizzes</p>
+                </div>
+                <div class="mt-4 md:mt-0">
+                    <a href="create-quiz.html" class="btn-primary flex items-center">
+                        <i class="fa-solid fa-plus mr-3"></i>
+                        Create New Quiz
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="lg:pt-20 pt-10">
+        <div class="md:container w-full mx-auto px-4">
+            <div class="bg-white rounded-lg shadow-lg md:p-6 p-4">
+                <div class="flex flex-col md:flex-row gap-4">
+                    <div class="flex-1">
+                        <input type="text" id="search-input" placeholder="Search quizzes..." class="w-full px-4 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                    </div>
+                    <div class="flex gap-4 sm:flex-1 flex-wrap sm:flex-nowrap">
+                        <select id="category-filter" class="input-select flex-1 pl-3 pr-5 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                            <option value="">All Categories</option>
+                            <option value="education">Education</option>
+                            <option value="science">Science</option>
+                            <option value="history">History</option>
+                            <option value="technology">Technology</option>
+                            <option value="sports">Sports</option>
+                            <option value="entertainment">Entertainment</option>
+                            <option value="general">General Knowledge</option>
+                        </select>
+                        <select id="difficulty-filter" class="input-select flex-1 pl-3 pr-5 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                            <option value="">All Difficulties</option>
+                            <option value="easy">Easy</option>
+                            <option value="medium">Medium</option>
+                            <option value="hard">Hard</option>
+                        </select>
+                        <select id="sort-filter" class="input-select flex-1 pl-3 pr-5 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                            <option value="newest">Newest First</option>
+                            <option value="oldest">Oldest First</option>
+                            <option value="title">Title A-Z</option>
+                            <option value="questions">Most Questions</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quiz Grid -->
+    <section class="lg:pb-20 pb-10 pt-8">
+        <div class="md:container w-full mx-auto px-4">
+            <div id="quiz-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Custom Quiz Card 1 (General Knowledge) -->
+                <div class="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden">
+                    <div class="relative pt-[58%]">
+                        <img src="assets/images/quiz-card-1.png" alt="Custom Quiz" loading="lazy" class="absolute inset-0 w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-black bg-opacity-20"></div>
+                    </div>
+                    <div class="xl:p-6 p-4">
+                        <div class="mb-4">
+                            <h3 class="md:text-xl text-lg font-bold mb-4">General Knowledge Quiz</h3>
+                            <div class="flex items-center space-x-2 text-sm opacity-90">
+                                <span class="bg-black bg-opacity-10 px-2 py-1 rounded">General Knowledge</span>
+                                <span class="bg-black bg-opacity-10 px-2 py-1 rounded">Medium</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between mb-4 text-sm text-gray-500">
+                            <div class="flex items-center space-x-4">
+                                <span class="flex items-center">
+                                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                    5 questions
+                                </span>
+                                <span class="flex items-center">
+                                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                    15m
+                                </span>
+                            </div>
+                            <span class="quiz-created text-xs">6/3/2025</span>
+                        </div>
+                        <div class="flex flex-wrap gap-3 justify-between">
+                            <a href="take-quiz.html?id=custom-quiz-1" class="btn-primary block text-center px-4 py-2 text-sm">
+                                Take Quiz
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Custom Quiz Card 2 (Science) -->
+                <div class="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden">
+                    <div class="relative pt-[58%]">
+                        <img src="assets/images/quiz-image-2.png" alt="Science Quiz" loading="lazy" class="absolute inset-0 w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-black bg-opacity-20"></div>
+                    </div>
+                    <div class="xl:p-6 p-4">
+                        <div class="mb-4">
+                            <h3 class="md:text-xl text-lg font-bold mb-4">Science Quiz</h3>
+                            <div class="flex items-center space-x-2 text-sm opacity-90">
+                                <span class="bg-black bg-opacity-10 px-2 py-1 rounded">Science</span>
+                                <span class="bg-black bg-opacity-10 px-2 py-1 rounded">Medium</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between mb-4 text-sm text-gray-500">
+                            <div class="flex items-center space-x-4">
+                                <span class="flex items-center">
+                                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                    5 questions
+                                </span>
+                                <span class="flex items-center">
+                                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                    15m
+                                </span>
+                            </div>
+                            <span class="quiz-created text-xs">6/3/2025</span>
+                        </div>
+                        
+                        <div class="flex flex-wrap gap-3 justify-between">
+                            <a href="take-quiz.html?id=custom-quiz-2" class="btn-primary block text-center px-4 py-2 text-sm">
+                                Take Quiz
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Custom Quiz Card 3 (History) -->
+                <div class="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden">
+                    <div class="relative pt-[58%]">
+                        <img src="assets/images/quiz-image-5.png" alt="History Quiz" loading="lazy" class="absolute inset-0 w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-black bg-opacity-20"></div>
+                    </div>
+                    <div class="xl:p-6 p-4">
+                        <div class="mb-4">
+                            <h3 class="md:text-xl text-lg font-bold mb-4">History Quiz</h3>
+                            <div class="flex items-center space-x-2 text-sm opacity-90">
+                                <span class="bg-black bg-opacity-10 px-2 py-1 rounded">History</span>
+                                <span class="bg-black bg-opacity-10 px-2 py-1 rounded">Medium</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between mb-4 text-sm text-gray-500">
+                            <div class="flex items-center space-x-4">
+                                <span class="flex items-center">
+                                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                    5 questions
+                                </span>
+                                <span class="flex items-center">
+                                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                    15m
+                                </span>
+                            </div>
+                            <span class="quiz-created text-xs">6/3/2025</span>
+                        </div>
+                        <div class="flex flex-wrap gap-3 justify-between">
+                            <a href="take-quiz.html?id=custom-quiz-3" class="btn-primary block text-center px-4 py-2 text-sm">
+                                Take Quiz
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Custom Quiz Card 4 (Technology) -->
+                <div class="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden">
+                    <div class="relative pt-[58%]">
+                        <img src="assets/images/quiz-image-4.png" alt="Technology Quiz" loading="lazy" class="absolute inset-0 w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-black bg-opacity-20"></div>
+                    </div>
+                    <div class="xl:p-6 p-4">
+                        <div class="mb-4">
+                            <h3 class="md:text-xl text-lg font-bold mb-4">Technology Quiz</h3>
+                            <div class="flex items-center space-x-2 text-sm opacity-90">
+                                <span class="bg-black bg-opacity-10 px-2 py-1 rounded">Technology</span>
+                                <span class="bg-black bg-opacity-10 px-2 py-1 rounded">Medium</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between mb-4 text-sm text-gray-500">
+                            <div class="flex items-center space-x-4">
+                                <span class="flex items-center">
+                                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                    5 questions
+                                </span>
+                                <span class="flex items-center">
+                                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                    15m
+                                </span>
+                            </div>
+                            <span class="quiz-created text-xs">6/3/2025</span>
+                        </div>
+                        <div class="flex flex-wrap gap-3 justify-between">
+                            <a href="take-quiz.html?id=custom-quiz-4" class="btn-primary block text-center px-4 py-2 text-sm">
+                                Take Quiz
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden">
+                    <div class="relative pt-[58%]">
+                        <img src="assets/images/quiz-image-1.png" alt="image" loading="lazy" class="absolute inset-0 w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-black bg-opacity-20">
+                        </div>
+                    </div>
+                    <div class="xl:p-6 p-4">
+                        <div class="mb-4">
+                            <h3 class="quiz-title md:text-xl text-lg font-bold mb-4">World Geography Challenge</h3>
+                            <div class="flex items-center space-x-2 text-sm opacity-90">
+                                <span class="quiz-category bg-black bg-opacity-10 px-2 py-1 rounded">Geography</span>
+                                <span class="quiz-difficulty bg-black bg-opacity-10 px-2 py-1 rounded">medium</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between mb-4 text-sm text-gray-500">
+                            <div class="flex items-center space-x-4">
+                                <span class="quiz-questions flex items-center">
+                                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                    <span class="question-count">4</span> questions
+                                </span>
+                                <span class="quiz-duration flex items-center">
+                                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                    <span class="duration-text">15m</span>
+                                </span>
+                            </div>
+                            <span class="quiz-created text-xs">6/3/2025</span>
+                        </div>
+                        <div class="flex flex-wrap gap-3 justify-between">
+                            <a href="take-quiz.html?id=custom-quiz-1" class="btn-primary block text-center px-4 py-2 text-sm">
+                                Take Quiz
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden">
+                    <div class="relative pt-[58%]">
+                        <img src="assets/images/quiz-image-3.png" alt="image" loading="lazy" class="absolute inset-0 w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-black bg-opacity-20">
+                        </div>
+                    </div>
+                    <div class="xl:p-6 p-4">
+                        <div class="mb-4">
+                            <h3 class="quiz-title md:text-xl text-lg font-bold mb-4">Algebra Basics</h3>
+                            <div class="flex items-center space-x-2 text-sm opacity-90">
+                                <span class="quiz-category bg-black bg-opacity-10 px-2 py-1 rounded">mathematics</span>
+                                <span class="quiz-difficulty bg-black bg-opacity-10 px-2 py-1 rounded">intermediate</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between mb-4 text-sm text-gray-500">
+                            <div class="flex items-center space-x-4">
+                                <span class="quiz-questions flex items-center">
+                                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                    <span class="question-count">2</span> questions
+                                </span>
+                                <span class="quiz-duration flex items-center">
+                                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                    <span class="duration-text">No limit</span>
+                                </span>
+                            </div>
+                            <span class="quiz-created text-xs">5/30/2025</span>
+                        </div>
+                        <div class="flex flex-wrap gap-3 justify-between">
+                            <a href="take-quiz.html?id=custom-quiz-3" class="btn-primary block text-center px-4 py-2 text-sm">
+                                Take Quiz
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Empty State -->
+            <div id="empty-state" class="hidden text-center lg:pt-12 pt-0">
+                <div class="max-w-md mx-auto">
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">No Additional Quizzes Found</h3>
+                    <p class="text-gray-600 mb-6">Start creating your own quizzes to see them here!</p>
+                    <a href="create-quiz.html" class="bg-primary text-white px-6 py-3 rounded-lg hover:bg-primary-dark transition-colors duration-200 font-medium inline-flex items-center">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                        </svg>
+                        Create Your Own Quiz
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+ <!-- Share Modal -->
+    <!-- <div id="share-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+        <div class="bg-white rounded-xl md:p-6 p-4 max-w-md w-full mx-4">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-lg font-bold text-gray-900">Share Quiz</h3>
+                <button id="close-share-modal" class="text-gray-500 hover:text-gray-700">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+            <p class="text-gray-600 mb-4">Share this quiz link with others:</p>
+            <div class="flex gap-3 flex-wrap">
+                <input type="text" id="share-link" readonly class="flex-1 px-3 py-2 border border-gray-300 rounded-lg bg-gray-50 text-sm">
+                <button id="copy-link" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary-dark transition-colors duration-200 text-sm">
+                    Copy
+                </button>
+            </div>
+        </div>
+    </div> -->
+    <!-- Footer -->
+    <footer class="border-t border-gray-800 bg-gray-800 lg:pt-16 pt-10">
+        <div class="md:container w-full mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 md:gap-10 sm:gap-8 gap-6">
+                <!-- Branding with animated quiz icon -->
+                <div class="space-y-5">
+                    <div class="flex items-center space-x-2 mb-4">
+                        <img src="assets/images/footer-logo.png" loading="lazy" alt="CleanPro Logo" class="h-10 w-[90px] object-scale-down">
+                    </div>
+                    <p class="text-sm text-white">
+                        Transform learning with interactive quizzes. Create, share, and analyze results effortlessly.
+                    </p>
+                    <div class="flex md:space-x-4 space-x-2">
+                        <a href="javascript:" class="social-icon md:w-10 md:h-10 w-8 h-8 flex items-center justify-center bg-gray-100 p-2 rounded-lg text-gray-800 hover:bg-primary hover:text-white transition-all duration-300">
+                            <i class="fab fa-x-twitter"></i>
+                        </a>
+                        <a href="javascript:" class="social-icon md:w-10 md:h-10 w-8 h-8 flex items-center justify-center bg-gray-100 p-2 rounded-lg text-gray-800 hover:bg-primary hover:text-white transition-all duration-300">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="javascript:" class="social-icon md:w-10 md:h-10 w-8 h-8 flex items-center justify-center bg-gray-100 p-2 rounded-lg text-gray-800 hover:bg-primary hover:text-white transition-all duration-300">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="javascript:" class="social-icon md:w-10 md:h-10 w-8 h-8 flex items-center justify-center bg-gray-100 p-2 rounded-lg text-gray-800 hover:bg-primary hover:text-white transition-all duration-300">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Links with amber accents -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-4 text-white flex items-center">
+                        <span class="w-2 h-2 bg-primary rounded-full mr-2"></span>
+                        Navigation
+                    </h3>
+                    <ul class="space-y-3">
+                        <li><a href="dashboard.html" class="nav-link text-sm flex items-center text-white transition-all duration-300">
+                            <i class="fas fa-chevron-right text-xs mr-2"></i> Dashboard
+                        </a></li>
+                        <li><a href="create-quiz.html" class="nav-link text-sm flex items-center text-white transition-all duration-300">
+                            <i class="fas fa-chevron-right text-xs mr-2"></i> Quiz Builder
+                        </a></li>
+                        <li><a href="javascript:" class="nav-link text-sm flex items-center text-white transition-all duration-300">
+                            <i class="fas fa-chevron-right text-xs mr-2"></i> Analytics
+                        </a></li>
+                        <li><a href="javascript:" class="nav-link text-sm flex items-center text-white transition-all duration-300">
+                            <i class="fas fa-chevron-right text-xs mr-2"></i> Templates
+                        </a></li>
+                    </ul>
+                </div>
+
+                <!-- Popular Quiz Categories -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-4 text-white flex items-center">
+                        <span class="w-2 h-2 bg-primary rounded-full mr-2"></span>
+                        Categories
+                    </h3>
+                    <ul class="space-y-3">
+                        <li><a href="javascript:" class="nav-link text-sm flex items-center text-white transition-all duration-300">
+                            <i class="fas fa-chevron-right text-xs mr-2"></i> Science
+                        </a></li>
+                        <li><a href="javascript:" class="nav-link text-sm flex items-center text-white transition-all duration-300">
+                            <i class="fas fa-chevron-right text-xs mr-2"></i> History
+                        </a></li>
+                        <li><a href="javascript:" class="nav-link text-sm flex items-center text-white transition-all duration-300">
+                            <i class="fas fa-chevron-right text-xs mr-2"></i>  Math
+                        </a></li>
+                        <li><a href="javascript:" class="nav-link text-sm flex items-center text-white transition-all duration-300">
+                            <i class="fas fa-chevron-right text-xs mr-2"></i> Languages
+                        </a></li>
+                    </ul>
+                </div>
+
+                <!-- Newsletter Subscription -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-4 text-white flex items-center">
+                        <span class="w-2 h-2 bg-primary rounded-full mr-2"></span>
+                        Stay Updated
+                    </h3>
+                    <p class="text-sm mb-4 text-white">
+                        Subscribe to get tips and new quiz templates weekly
+                    </p>
+                    <form id="footer-newsletter" class="min-w-[217px]">
+                        <div class="flex">
+                            <input type="email" placeholder="Your mail address" required="" class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-l-xl text-white text-sm focus:outline-none focus:bg-white/10 transition-colors">
+                            <button type="submit" class="px-4 py-2 text-sm rounded-r-lg bg-primary text-white">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="lg:mt-10 mt-8 relative border-t border-gray-400 md:py-6 py-4 text-center">
+                <p class="text-xs  text-white">
+                    &copy; 2025 Quiz Management. Crafted with <i class="fas fa-heart text-primary-500 mx-0.5"></i> for educators.
+                </p>
+            </div>
+        </div>
+    </footer>
+    <script src="assets/js/swiper-bundle.min.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script>
+       
+        // Add data-quiz-id attributes to custom quiz cards
+        document.addEventListener('DOMContentLoaded', function() {
+            const customQuizCards = document.querySelectorAll('#quiz-grid > div');
+            customQuizCards.forEach((card, index) => {
+                card.setAttribute('data-quiz-id', `custom-quiz-${index + 1}`);
+            });
+        });
+    </script>
+</body>
+</html>

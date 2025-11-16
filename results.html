@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+    <title>Quiz Management | WorkDo Dash</title>
+    <link rel="icon" href="assets/images/favicon.png" type="image/x-icon">
+    <script src="assets/js/tailwind.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/swiper-bundle.min.css">
+    <link rel="stylesheet" href="assets\css\all.min.css">
+    <link rel="stylesheet" href="assets\css\styles.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary:'#F59E0B',
+                    },
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-inter bg-gray-50">
+    <header class="sticky top-0 z-50 bg-white shadow-lg">
+        <nav class="md:container w-full mx-auto px-4 py-4">
+          <div class="flex items-center justify-between">
+            <!-- Logo -->
+            <div class="flex items-center space-x-3 shrink-0">
+              <h1>
+                <a
+                  href="index.html"
+                  class="block lg:max-w-[90px] max-w-[70px] w-full">
+                  <img
+                    src="assets/images/header-logo.png"
+                    alt="logo"
+                    class="w-full h-full object-scale-down"
+                    loading="lazy" />
+                </a>
+              </h1>
+            </div>
+  
+            <!-- Desktop Navigation -->
+            <div
+              class="hidden md:flex items-center xl:space-x-8 lg:space-x-6 space-x-4 menu-items">
+              <a href="dashboard.html" class="text-gray-700 hover:text-primary transition-all duration-300 font-medium">Dashboard</a>
+                    <a href="create-quiz.html" class="text-gray-700 hover:text-primary transition-all duration-300 font-medium">Create Quiz</a>
+                    <a href="quiz-library.html" class="text-gray-700 hover:text-primary transition-all duration-300 font-medium">Quiz Library</a>
+            </div>
+            <div class="header-right-col hidden md:flex lg:space-x-6 space-x-4 menu-items">
+              <div class="relative inline-block text-left h-auto" id="language-dropdown">
+                      <button data-dropdown-toggle="language" type="button" class="inline-flex items-center h-full rounded-lg justify-center w-full text-black border border-black lg:px-4 px-3 py-2 bg-white text-sm font-medium  focus:outline-none focus:ring- focus:ring-offset-2 focus:ring-primary">
+                              English
+                      <i class="fas fa-chevron-down ml-2"></i>
+                      </button>
+  
+                      <div data-dropdown-menu="language" class="origin-top-right absolute right-0 mt-2 w-full shadow-lg rounded-lg border-black border overflow-hidden bg-white ring-1 ring-black ring-opacity-5 focus:outline-none hidden transition-all transform duration-100">
+                          <a href="javascript:void(0)" class="block px-4 py-2 text-gray-700 text-sm hover:text-black transition-all hover:bg-gray-100">English</a>
+                          <a href="javascript:void(0)" class="block px-4 py-2 text-gray-700 text-sm hover:text-black transition-all hover:bg-gray-100">Español</a>
+                          <a href="javascript:void(0)" class="block px-4 py-2 text-gray-700 text-sm hover:text-black transition-all hover:bg-gray-100">Français</a>
+                          <a href="javascript:void(0)" class="block px-4 py-2 text-gray-700 text-sm hover:text-black transition-all hover:bg-gray-100">Deutsch</a>
+                      </div>
+                  </div>
+                  <a href="dashboard.html" class="btn-primary text-white py-2">Get Started</a>
+            </div>
+  
+            <!-- Mobile Menu Button -->
+            <button class="md:hidden text-dark text-xl" id="mobileMenuBtn">
+              <i class="fas fa-bars"></i>
+            </button>
+          </div>
+  
+          <!-- Mobile Navigation -->
+          <div class="md:hidden mt-4 hidden border-t pt-4" id="mobileMenu">
+            <div class="flex gap-4 mb-4">
+               <div class="relative inline-block text-left text-sm">
+                      <button data-dropdown-toggle="mob-language" type="button" class="w-full h-full rounded-lg flex items-center justify-between px-3 py-2 border border-black">
+                            English
+                      <i class="fas fa-chevron-down ml-2"></i>
+                      </button>
+  
+                      <div data-dropdown-menu="mob-language" class="w-full absolute left-0 mt-2 py-2 min-w-24 z-10 rounded-lg bg-white border border-black shadow-lg hidden">
+                          <a href="javascript:void(0)" class="block px-4 py-2 text-black hover:text-dark-900 hover:bg-gray-100">English</a>
+                          <a href="javascript:void(0)" class="block px-4 py-2 text-black hover:text-dark-900 hover:bg-gray-100">Español</a>
+                          <a href="javascript:void(0)" class="block px-4 py-2 text-black hover:text-dark-900 hover:bg-gray-100">Français</a>
+                          <a href="javascript:void(0)" class="block px-4 py-2 text-black hover:text-dark-900 hover:bg-gray-100">Deutsch</a>
+                      </div>
+                  </div>
+                  <a href="dashboard.html" class="btn-primary text-white py-2">Get Started</a>
+            </div>
+            <div class="flex flex-col">
+                <a href="dashboard.html" class="block pb-2 text-gray-700 hover:text-primary transition-all duration-300">Dashboard</a>
+                <a href="create-quiz.html" class="block py-2 text-gray-700 hover:text-primary transition-all duration-300">Create Quiz</a>
+                <a href="quiz-library.html" class="block py-2 text-gray-700 hover:text-primary transition-all duration-300">Quiz Library</a>
+            </div>
+        </div>
+        </nav>
+    </header>
+
+    <section class="lg:py-20 py-10 bg-gradient-to-br from-primary/5 to-primary/5 relative z-10 overflow-hidden">
+        <div class="round-blob bg-primary opacity-10 -z-10 lg:-top-36 -top-16 -left-20 ld:-left-30 rotate-animation"></div>
+        <div class="round-blob bg-primary opacity-10 -z-10 lg:-bottom-40 md:-bottom-36 -bottom-24 -right-10 rotate-animation animation-delay-3000"></div>
+        <!-- Content Container -->
+        <div class="relative md:container w-full mx-auto px-4 text-center">
+            <h2 class="sm:text-3xl text-2xl lg:text-4xl font-bold text-gray-900 sm:mb-4 mb-3">Quiz Results</h2>
+            <p class="text-gray-600 mt-2">Detailed breakdown of your performance</p>
+        </div>
+    </section>
+
+    <!-- Results Summary -->
+    <section class="lg:py-20 py-10">
+        <div class="md:container w-full mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <div class="bg-white rounded-xl shadow-lg md:p-8 sm:p-6 p-4 md:mb-8 mb-6">
+                    <div class="text-center md:mb-8 sm:mb-6 mb-4">
+                        <div class="w-24 h-24 mx-auto mb-4 relative">
+                            <svg class="w-24 h-24 transform -rotate-90" viewBox="0 0 100 100">
+                                <circle cx="50" cy="50" r="45" stroke="#e5e7eb" stroke-width="8" fill="none"></circle>
+                                <circle id="score-circle" cx="50" cy="50" r="45" stroke="#F59E0B" stroke-width="8" fill="none" stroke-dasharray="283" stroke-dashoffset="283" class="transition-all duration-1000 ease-out"></circle>
+                            </svg>
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <span id="score-percentage" class="text-2xl font-bold text-gray-900">0%</span>
+                            </div>
+                        </div>
+                        <h2 id="quiz-title" class="text-2xl font-bold text-gray-900 mb-2">Quiz Title</h2>
+                        <p class="text-gray-600">Completed on <span id="completion-date"></span></p>
+                    </div>
+
+                    <div class="grid sm:grid-cols-4 grid-cols-2 md:gap-6 gap-4">
+                        <div class="text-center p-4 bg-gray-50 rounded-lg shadow-lg">
+                            <div class="text-2xl font-bold text-primary mb-1" id="final-score">0%</div>
+                            <div class="text-sm text-gray-600">Final Score</div>
+                        </div>
+                        <div class="text-center p-4 bg-gray-50 rounded-lg shadow-lg">
+                            <div class="text-2xl font-bold text-green-500 mb-1" id="correct-count">0</div>
+                            <div class="text-sm text-gray-600">Correct Answers</div>
+                        </div>
+                        <div class="text-center p-4 bg-gray-50 rounded-lg shadow-lg">
+                            <div class="text-2xl font-bold text-red-500 mb-1" id="incorrect-count">0</div>
+                            <div class="text-sm text-gray-600">Incorrect Answers</div>
+                        </div>
+                        <div class="text-center p-4 bg-gray-50 rounded-lg shadow-lg">
+                            <div class="text-2xl font-bold text-blue-500 mb-1" id="total-questions">0</div>
+                            <div class="text-sm text-gray-600">Total Questions</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question by Question Breakdown -->
+                <div class="bg-white rounded-xl shadow-lg sm:p-6 p-4">
+                    <h3 class="text-xl font-bold text-gray-900 md:mb-6 mb-4">Question Breakdown</h3>
+                    <div id="questions-breakdown" class="sm:space-y-6 space-y-4">
+                        <!-- Questions will be populated here -->
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="md:mt-8 sm:mt-6 mt-4 flex flex-col sm:flex-row gap-4 justify-center">
+                    <button id="retake-quiz" class="btn-secondary">
+                        Retake Quiz
+                    </button>
+                    <a href="quiz-library.html" class="btn-primary text-center">
+                        Browse More Quizzes
+                    </a>
+                    <a href="dashboard.html" class="btn-secondary text-center">
+                        Back to Dashboard
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="border-t border-gray-800 bg-gray-800 lg:pt-16 pt-10">
+        <div class="md:container w-full mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 md:gap-10 sm:gap-8 gap-6">
+                <!-- Branding with animated quiz icon -->
+                <div class="space-y-5">
+                    <div class="flex items-center space-x-2 mb-4">
+                        <img src="assets/images/footer-logo.png" loading="lazy" alt="CleanPro Logo" class="h-10 w-[90px] object-scale-down">
+                    </div>
+                    <p class="text-sm text-white">
+                        Transform learning with interactive quizzes. Create, share, and analyze results effortlessly.
+                    </p>
+                    <div class="flex md:space-x-4 space-x-2">
+                        <a href="javascript:" class="social-icon md:w-10 md:h-10 w-8 h-8 flex items-center justify-center bg-gray-100 p-2 rounded-lg text-gray-800 hover:bg-primary hover:text-white transition-all duration-300">
+                            <i class="fab fa-x-twitter"></i>
+                        </a>
+                        <a href="javascript:" class="social-icon md:w-10 md:h-10 w-8 h-8 flex items-center justify-center bg-gray-100 p-2 rounded-lg text-gray-800 hover:bg-primary hover:text-white transition-all duration-300">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="javascript:" class="social-icon md:w-10 md:h-10 w-8 h-8 flex items-center justify-center bg-gray-100 p-2 rounded-lg text-gray-800 hover:bg-primary hover:text-white transition-all duration-300">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="javascript:" class="social-icon md:w-10 md:h-10 w-8 h-8 flex items-center justify-center bg-gray-100 p-2 rounded-lg text-gray-800 hover:bg-primary hover:text-white transition-all duration-300">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Links with amber accents -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-4 text-white flex items-center">
+                        <span class="w-2 h-2 bg-primary rounded-full mr-2"></span>
+                        Navigation
+                    </h3>
+                    <ul class="space-y-3">
+                        <li><a href="dashboard.html" class="nav-link text-sm flex items-center text-white transition-all duration-300">
+                            <i class="fas fa-chevron-right text-xs mr-2"></i> Dashboard
+                        </a></li>
+                        <li><a href="create-quiz.html" class="nav-link text-sm flex items-center text-white transition-all duration-300">
+                            <i class="fas fa-chevron-right text-xs mr-2"></i> Quiz Builder
+                        </a></li>
+                        <li><a href="javascript:" class="nav-link text-sm flex items-center text-white transition-all duration-300">
+                            <i class="fas fa-chevron-right text-xs mr-2"></i> Analytics
+                        </a></li>
+                        <li><a href="javascript:" class="nav-link text-sm flex items-center text-white transition-all duration-300">
+                            <i class="fas fa-chevron-right text-xs mr-2"></i> Templates
+                        </a></li>
+                    </ul>
+                </div>
+
+                <!-- Popular Quiz Categories -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-4 text-white flex items-center">
+                        <span class="w-2 h-2 bg-primary rounded-full mr-2"></span>
+                        Categories
+                    </h3>
+                    <ul class="space-y-3">
+                        <li><a href="javascript:" class="nav-link text-sm flex items-center text-white transition-all duration-300">
+                            <i class="fas fa-chevron-right text-xs mr-2"></i> Science
+                        </a></li>
+                        <li><a href="javascript:" class="nav-link text-sm flex items-center text-white transition-all duration-300">
+                            <i class="fas fa-chevron-right text-xs mr-2"></i> History
+                        </a></li>
+                        <li><a href="javascript:" class="nav-link text-sm flex items-center text-white transition-all duration-300">
+                            <i class="fas fa-chevron-right text-xs mr-2"></i>  Math
+                        </a></li>
+                        <li><a href="javascript:" class="nav-link text-sm flex items-center text-white transition-all duration-300">
+                            <i class="fas fa-chevron-right text-xs mr-2"></i> Languages
+                        </a></li>
+                    </ul>
+                </div>
+
+                <!-- Newsletter Subscription -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-4 text-white flex items-center">
+                        <span class="w-2 h-2 bg-primary rounded-full mr-2"></span>
+                        Stay Updated
+                    </h3>
+                    <p class="text-sm mb-4 text-white">
+                        Subscribe to get tips and new quiz templates weekly
+                    </p>
+                    <form id="footer-newsletter" class="min-w-[217px]">
+                        <div class="flex">
+                            <input type="email" placeholder="Your mail address" required="" class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-l-xl text-white text-sm focus:outline-none focus:bg-white/10 transition-colors">
+                            <button type="submit" class="px-4 py-2 text-sm rounded-r-lg bg-primary text-white">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="lg:mt-10 mt-8 relative border-t border-gray-400 md:py-6 py-4 text-center">
+                <p class="text-xs  text-white">
+                    &copy; 2025 Quiz Management. Crafted with <i class="fas fa-heart text-primary-500 mx-0.5"></i> for educators.
+                </p>
+            </div>
+        </div>
+    </footer>
+        <script src="assets/js/swiper-bundle.min.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script>
+        let currentResults = null;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadResults();
+            setupEventListeners();
+        });
+
+        function setupEventListeners() {
+            document.getElementById('retake-quiz').addEventListener('click', function() {
+                if (currentResults && currentResults.quiz) {
+                    window.location.href = `take-quiz.html?id=${currentResults.quiz.id}`;
+                }
+            });
+        }
+
+        function loadResults() {
+            // Try to get results from sessionStorage first (from take-quiz.html)
+            const sessionResults = sessionStorage.getItem('currentResults');
+            if (sessionResults) {
+                currentResults = JSON.parse(sessionResults);
+                sessionStorage.removeItem('currentResults'); // Clean up
+            } else {
+                // Fallback: redirect to dashboard if no results found
+                alert('No quiz results found. Redirecting to dashboard.');
+                window.location.href = 'dashboard.html';
+                return;
+            }
+
+            displayResults();
+        }
+
+        function displayResults() {
+            if (!currentResults) return;
+
+            const { quiz, userAnswers, score, correctCount, incorrectCount } = currentResults;
+
+            // Update basic info
+            document.getElementById('quiz-title').textContent = quiz.title;
+            document.getElementById('completion-date').textContent = new Date().toLocaleDateString();
+            document.getElementById('final-score').textContent = `${score}%`;
+            document.getElementById('correct-count').textContent = correctCount;
+            document.getElementById('incorrect-count').textContent = incorrectCount;
+            document.getElementById('total-questions').textContent = quiz.questions.length;
+            document.getElementById('score-percentage').textContent = `${score}%`;
+
+            // Animate score circle
+            animateScoreCircle(score);
+
+            // Display question breakdown
+            displayQuestionBreakdown(quiz, userAnswers);
+        }
+
+        function animateScoreCircle(score) {
+            const circle = document.getElementById('score-circle');
+            const circumference = 2 * Math.PI * 45; // radius = 45
+            const offset = circumference - (score / 100) * circumference;
+            
+            setTimeout(() => {
+                circle.style.strokeDashoffset = offset;
+            }, 500);
+        }
+
+        function displayQuestionBreakdown(quiz, userAnswers) {
+            const container = document.getElementById('questions-breakdown');
+            
+            container.innerHTML = quiz.questions.map((question, index) => {
+                const userAnswer = userAnswers[index];
+                const isCorrect = checkAnswer(question, userAnswer);
+                
+                return `
+                    <div class="border border-gray-200 rounded-lg sm:p-6 p-4 ${isCorrect ? 'bg-green-50 border-green-200' : 'bg-red-50 border-red-200'}">
+                        <div class="flex flex-wrap gap-y-3 items-start justify-between mb-4">
+                            <h4 class="sm:text-lg text-[16px] font-semibold text-gray-900 sm:flex-1 sm:pr-4 pr-2">
+                                ${index + 1}. ${question.question}
+                            </h4>
+                            <div class="flex items-center space-x-2 flex-shrink-0">
+                                ${isCorrect ? 
+                                    '<svg class="sm:w-6 sm:h-6 w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>' :
+                                    '<svg class="sm:w-6 sm:h-6 w-4 h-4 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>'
+                                }
+                                <span class="text-sm font-medium ${isCorrect ? 'text-green-700' : 'text-red-700'}">
+                                    ${isCorrect ? 'Correct' : 'Incorrect'}
+                                </span>
+                            </div>
+                        </div>
+                        
+                        ${renderQuestionDetails(question, userAnswer, isCorrect)}
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function renderQuestionDetails(question, userAnswer, isCorrect) {
+            if (question.type === 'multiple-choice') {
+                return `
+                    <div class="space-y-2">
+                        ${question.options.map((option, optionIndex) => {
+                            const isUserChoice = parseInt(userAnswer) === optionIndex;
+                            const isCorrectOption = optionIndex === question.correctAnswer;
+                            
+                            let classes = 'flex items-center space-x-3 p-3 rounded-lg border ';
+                            if (isCorrectOption) {
+                                classes += 'bg-green-100 border-green-300 text-green-800';
+                            } else if (isUserChoice && !isCorrect) {
+                                classes += 'bg-red-100 border-red-300 text-red-800';
+                            } else {
+                                classes += 'bg-gray-50 border-gray-200';
+                            }
+                            
+                            return `
+                                <div class="${classes}">
+                                    <div class="w-4 h-4 rounded-full border-2 flex-shrink-0 ${isCorrectOption ? 'bg-green-500 border-green-500' : isUserChoice ? 'bg-red-500 border-red-500' : 'border-gray-300'}"></div>
+                                    <span class="flex-1 sm:text-base text-sm">${option}</span>
+                                    ${isUserChoice ? '<span class="text-xs font-medium">Your answer</span>' : ''}
+                                    ${isCorrectOption ? '<span class="text-xs font-medium">Correct answer</span>' : ''}
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                `;
+            } else if (question.type === 'true-false') {
+                const isUserTrue = userAnswer === 'true';
+                const isCorrectTrue = question.correctAnswer === 'true';
+                
+                return `
+                    <div class="space-y-2">
+                        <div class="flex items-center space-x-3 p-3 rounded-lg border ${isCorrectTrue ? 'bg-green-100 border-green-300' : isUserTrue ? 'bg-red-100 border-red-300' : 'bg-gray-50 border-gray-200'}">
+                            <div class="w-4 h-4 rounded-full border-2 ${isCorrectTrue ? 'bg-green-500 border-green-500' : isUserTrue ? 'bg-red-500 border-red-500' : 'border-gray-300'}"></div>
+                            <span class="flex-1 sm:text-base text-sm">True</span>
+                            ${isUserTrue ? '<span class="text-xs font-medium">Your answer</span>' : ''}
+                            ${isCorrectTrue ? '<span class="text-xs font-medium">Correct answer</span>' : ''}
+                        </div>
+                        <div class="flex items-center space-x-3 p-3 rounded-lg border ${!isCorrectTrue ? 'bg-green-100 border-green-300' : !isUserTrue ? 'bg-red-100 border-red-300' : 'bg-gray-50 border-gray-200'}">
+                            <div class="w-4 h-4 rounded-full border-2 flex-shrink-0 ${!isCorrectTrue ? 'bg-green-500 border-green-500' : !isUserTrue ? 'bg-red-500 border-red-500' : 'border-gray-300'}"></div>
+                            <span class="flex-1 sm:text-base text-sm">False</span>
+                            ${!isUserTrue ? '<span class="text-xs font-medium">Your answer</span>' : ''}
+                            ${!isCorrectTrue ? '<span class="text-xs font-medium">Correct answer</span>' : ''}
+                        </div>
+                    </div>
+                `;
+            } else if (question.type === 'text-input') {
+                return `
+                    <div class="space-y-3">
+                        <div class="p-3 rounded-lg bg-gray-50 border border-gray-200">
+                            <div class="text-sm text-gray-600 mb-1">Your Answer:</div>
+                            <div class="font-medium sm:text-base text-sm ${isCorrect ? 'text-green-700' : 'text-red-700'}">${userAnswer || 'No answer provided'}</div>
+                        </div>
+                        <div class="p-3 rounded-lg bg-green-50 border border-green-200">
+                            <div class="text-sm text-green-600 mb-1">Correct Answer:</div>
+                            <div class="font-medium text-green-700 sm:text-base text-sm">${question.correctAnswer}</div>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        function checkAnswer(question, userAnswer) {
+            if (userAnswer === null || userAnswer === '') return false;
+            
+            if (question.type === 'multiple-choice') {
+                return parseInt(userAnswer) === question.correctAnswer;
+            } else if (question.type === 'true-false') {
+                return userAnswer === question.correctAnswer;
+            } else if (question.type === 'text-input') {
+                return userAnswer.toLowerCase().trim() === question.correctAnswer.toLowerCase().trim();
+            }
+            
+            return false;
+        }
+    </script>
+</body>
+</html>
